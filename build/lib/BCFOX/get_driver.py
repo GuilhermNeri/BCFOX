@@ -42,19 +42,3 @@ def launch_browser(download_dir):
     except: driver = uc.Chrome(options=options, use_subprocess=True)
 
     return driver
-
-def apply_stealth(driver):
-    stealth(driver,
-        languages=["en-US", "en"],
-        vendor="Google Inc.",
-        platform="Win32",
-        webgl_vendor="Intel Inc.",
-        renderer="Intel Iris OpenGL Engine",
-        fix_hairline=True
-    )
-
-def start_instance(caminho):
-    driver = launch_browser(caminho)
-    apply_stealth(driver)
-    print(" - Instância driver iniciada com sucesso")
-    return driver

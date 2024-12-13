@@ -1,6 +1,21 @@
 import requests
 
-def invoke_api_list(link, uf):
+def invoke_api_list(link, uf, token, print_response="OFF"):
+    """
+    Exemplo de uso abaixo:
+
+        import BCFOX as bc
+
+        def invoke_api_list(self):
+            link = 'https://api-4.bcfox.com.br/bcjur/{parametros}'
+            token = 12345ABCDE12345ABCDE12345ABCDE12345ABCDE12345
+
+            bc.invoke_api_list(link, token, print_response='ON')
+
+        OBS: o print_response vem por padrão desligado, caso você queira ativa o print da view coloque 'ON'
+
+        """
+
     url = f"https://api-4.bcfox.com.br/bcjur/views/{parametros}{uf}"
 
     payload = ""
@@ -9,7 +24,8 @@ def invoke_api_list(link, uf):
     response = requests.request("GET", url, data=payload, headers=headers)
 
     response_api_list = response.json()
-    print(f"Response API List: {response_api_list}")
+    if print_response == "ON":
+        print(f"Response API List: {response_api_list}")
 
     return response_api_list
 
@@ -186,28 +202,36 @@ def invoke_api_list(link, uf):
 #                 # Aqui pode ser adicionada uma ação caso o erro persista
 #                 break
 
-def invoke_api_proc_final(parametros, payload_vars, token):
+def invoke_api_proc_final(link_, payload_vars, token, print_response="OFF"):
     """
-    As suas variaveis vão dentro dos '{}' como nos exemplos abaixos:
+    Exemplo de uso abaixo:
 
-    Modelo:
-        invoke_api_proc_final({parametros}, {payload}, {token})
+    import BCFOX as bc
 
-        - Parametros:
-            https://api-4.bcfox.com.br/bcjur/{parametros}  (Passar só o parametro)
+    def invoke_api_proc_final(self):
+        link = https://api-4.bcfox.com.br/bcjur/{parametros}
+        token = 12345ABCDE12345ABCDE12345ABCDE12345ABCDE12345
 
-        - Payload:
-            {"var1": self.var1}
-            {"var2": self.var2}
-            {"var3": self.var3}
-            ...
+        payload = [
+        {"ID":self.id}, 
+        {"STATUS":self.status},
+        {"PAGAMENTO":self.pagamento}
+        ...
+        ]
+
+        bc.invoke_api_proc_final(link, payload, token, print_response="ON")
+
+    OBS: o print_response vem por padrão desligado, caso você queria ver o returno do response coloque 'ON'
+
     """
+    # ToDo: Finalizar validação
     # PROC PARA FINALIZAR PROCESSO
-    url = f'https://api-4.bcfox.com.br/bcjur/{parametros}'
+    url = link_
 
-    payload = {payload_vars}
+    payload = payload_vars
 
-    print(f'payload: {payload}')
+    if print_response == "ON":
+        print(f'payload: {payload}')
 
     headers = {"x-access-token": token}
 

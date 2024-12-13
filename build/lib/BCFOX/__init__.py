@@ -19,21 +19,20 @@ def create_dirs():
 def initialize_driver():
     global driver
     if driver is None:
-        driver = get_driver.start_instance(download_dir)
-
-    return driver
+        driver = get_driver.launch_browser(download_dir)
+        return driver
 
 def find_element_with_wait(by, value, timeout=10, parent=None):
     global driver
     if driver != None:
-        return find_elements.find_element_with_wait_backcode(driver, by, value, timeout=10, parent=None)
+        return find_elements._find_element_with_wait_backcode(driver, by, value, timeout=10, parent=None)
 
     else: raise ValueError("Error: Driver is None")
 
 def find_elements_with_wait(by, value, timeout=10, parent=None):
     global driver
     if driver != None:
-        return find_elements.find_elements_with_wait_backcode(driver, by, value, timeout=10, parent=None)
+        return find_elements._find_elements_with_wait_backcode(driver, by, value, timeout=10, parent=None)
 
     else: raise ValueError("Error: Driver is None")
 
